@@ -1,5 +1,5 @@
 /*
- *  Sugar Library vedge
+ *  Sugar Library v1.9.3
  *
  *  Freely distributable and licensed under the MIT-style license.
  *  Copyright (c) 2013 Andrew Plummer
@@ -2014,9 +2014,9 @@
         var result, coerced = keysWithCoercion(obj);
         result = array.prototype[name].call(coerced, function(key) {
           if(mapping) {
-            return transformArgument(obj[key], arg1, obj, [key, obj[key], obj]);
+            return transformArgument(obj[key], arg1, obj, [obj[key], key, obj]);
           } else {
-            return multiMatch(obj[key], arg1, obj, [key, obj[key], obj]);
+            return multiMatch(obj[key], arg1, obj, [obj[key], key, obj]);
           }
         }, arg2);
         if(isArray(result)) {
@@ -2037,7 +2037,7 @@
 
     'map': function(obj, map) {
       return keysWithCoercion(obj).reduce(function(result, key) {
-        result[key] = transformArgument(obj[key], map, obj, [key, obj[key], obj]);
+        result[key] = transformArgument(obj[key], map, obj, [obj[key], key, obj]);
         return result;
       }, {});
     },
@@ -2051,7 +2051,7 @@
 
     'each': function(obj, fn) {
       checkCallback(fn);
-      iterateOverObject(obj, fn);
+      iterateOverObject(obj, function(k,v) { fn(v, k); });
       return obj;
     },
 
@@ -5599,7 +5599,7 @@
     },
 
     /***
-     * @method Object.toQueryString(<obj>, [namespace] = true)
+     * @method Object.toQueryString(<obj>, [namespace] = null)
      * @returns Object
      * @short Converts the object into a query string.
      * @extra Accepts deep nested objects and arrays. If [namespace] is passed, it will be prefixed to all param names.
