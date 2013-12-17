@@ -1,6 +1,6 @@
 {
   "name": "sugar",
-  "version": "1.3.9",
+  "version": "1.4.1",
   "description": "A Javascript library for working with native objects.",
   "keywords": ["functional", "utility", "ender"],
   "homepage": "http://sugarjs.com/",
@@ -9,5 +9,6 @@
   "directories" : {"lib" : "./lib"},
   "repository" : {"type" : "git", "url": "https://github.com/andrewplummer/Sugar.git"},
   "engines" : {"node" : ">= 0.4.0"},
-  "scripts": {"test": "./unit_tests/node.sh"}
+  "scripts": {"test": "node test/environments/node/test.js"},
+  "license": "MIT"
 }
